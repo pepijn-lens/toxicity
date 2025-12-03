@@ -36,15 +36,14 @@ for records_idx in range(0, len(all_records), MICROBATCH_SIZE):
   batches.append(all_records[records_idx: (records_idx + MICROBATCH_SIZE)])
 
 for batch in batches:
-  tokenized_batch = tokenizer(batch, padding = True)
-  input_ids = torch.tensor(tokenized_batch['input_ids'], dtype=torch.long).to(model.device)
-  attention_mask = torch.tensor(tokenized_batch['attention_mask'], dtype=torch.long).to(model.device)
-  outputs = model.generate(inputs = input_ids, attention_mask = attention_mask, max_new_tokens = MAX_NEW_TOKENS)
-  completions_only = outputs[:, input_ids.size(1):]
-  decoded = tokenizer.batch_decode(completions_only, skip_special_tokens=True)
-  for record in decoded:
+    tokenized_batch = tokenizer(batch, padding = True)
+    input_ids = torch.tensor(tokenized_batch['input_ids'], dtype=torch.long).to(model.device)
+    attention_mask = torch.tensor(tokenized_batch['attention_mask'], dtype=torch.long).to(model.device)
+    outputs = model.generate(inputs = input_ids, attention_mask = attention_mask, max_new_tokens = MAX_NEW_TOKENS)
+    completions_only = outputs[:, input_ids.size(1):]
+    decoded = tokenizer.batch_decode(completions_only, skip_special_tokens=True)
     with open("output.jsonl", 'a') as file:
-      for record in decoded:
-        json_line = json.dumps({"completion": record})
-        file.write(json_line + '\n')
+        for record in decoded:
+            json_line = json.dumps({"completion": record})
+            file.write(json_line + '\n')
 
