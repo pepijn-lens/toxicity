@@ -1,0 +1,133 @@
+Analyzing Gemma from RQ2/results/explanations_gemma.json...
+
+Results for Gemma:
+Total samples: 366
+Total highlighted tokens analyzed: 1825
+
+Top 10 Highlighted POS Tags:
+  NOUN: 499 (27.34%)
+  PUNCT: 243 (13.32%)
+  VERB: 240 (13.15%)
+  PRON: 184 (10.08%)
+  PROPN: 180 (9.86%)
+  ADJ: 145 (7.95%)
+  ADV: 65 (3.56%)
+  ADP: 57 (3.12%)
+  SCONJ: 38 (2.08%)
+  CCONJ: 36 (1.97%)
+
+Top 10 Baseline POS Tags (All tokens):
+  NOUN: 960 (15.68%)
+  PUNCT: 859 (14.03%)
+  PRON: 792 (12.94%)
+  VERB: 750 (12.25%)
+  DET: 454 (7.42%)
+  ADP: 427 (6.98%)
+  ADJ: 409 (6.68%)
+  AUX: 336 (5.49%)
+  PROPN: 298 (4.87%)
+  ADV: 230 (3.76%)
+
+Top 10 Highlighted Lemmas:
+  ": 70
+  ,: 66
+  fuck: 53
+  i: 37
+  fucking: 36
+  shit: 33
+  you: 27
+  :: 27
+  bitch: 25
+  he: 24
+
+Top 10 Highlighted NER Labels:
+  PERSON: 50
+  ORG: 20
+  NORP: 14
+  GPE: 11
+  WORK_OF_ART: 7
+  CARDINAL: 5
+  DATE: 4
+  ORDINAL: 3
+  LAW: 2
+  MONEY: 1
+
+Relative Importance (Highlighted % / Baseline %):
+  PROPN: 2.03x
+  NOUN: 1.74x
+  X: 1.41x
+  INTJ: 1.24x
+  ADJ: 1.19x
+  ...
+  NUM: 0.52x
+  PART: 0.50x
+  ADP: 0.45x
+  AUX: 0.35x
+  DET: 0.24x
+--------------------------------------------------
+Analyzing Mistral from RQ2/results/explanations_mistral.json...
+
+Results for Mistral:
+Total samples: 396
+Total highlighted tokens analyzed: 1980
+
+Top 10 Highlighted POS Tags:
+  NOUN: 494 (24.95%)
+  PUNCT: 382 (19.29%)
+  VERB: 226 (11.41%)
+  PRON: 210 (10.61%)
+  PROPN: 146 (7.37%)
+  ADJ: 130 (6.57%)
+  DET: 65 (3.28%)
+  ADP: 60 (3.03%)
+  ADV: 56 (2.83%)
+  SCONJ: 55 (2.78%)
+
+Top 10 Baseline POS Tags (All tokens):
+  NOUN: 1467 (14.96%)
+  VERB: 1361 (13.88%)
+  PRON: 1253 (12.78%)
+  PUNCT: 1089 (11.10%)
+  DET: 731 (7.45%)
+  ADP: 705 (7.19%)
+  ADJ: 648 (6.61%)
+  AUX: 620 (6.32%)
+  PROPN: 457 (4.66%)
+  PART: 362 (3.69%)
+
+Top 10 Highlighted Lemmas:
+  ": 124
+  ,: 110
+  fuck: 66
+  i: 61
+  .: 56
+  fucking: 40
+  the: 38
+  shit: 37
+  and: 36
+  you: 34
+
+Top 10 Highlighted NER Labels:
+  PERSON: 46
+  ORG: 19
+  WORK_OF_ART: 11
+  NORP: 10
+  CARDINAL: 8
+  GPE: 6
+  DATE: 4
+  PRODUCT: 3
+  ORDINAL: 2
+  TIME: 1
+
+Relative Importance (Highlighted % / Baseline %):
+  X: 1.75x
+  PUNCT: 1.74x
+  NOUN: 1.67x
+  PROPN: 1.58x
+  CCONJ: 1.05x
+  ...
+  INTJ: 0.62x
+  DET: 0.44x
+  ADP: 0.42x
+  AUX: 0.33x
+  PART: 0.30x
