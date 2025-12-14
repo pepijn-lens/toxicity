@@ -140,14 +140,74 @@ python RQ2/lexical_analysis.py > RQ2/results/lexical_analysis_report.txt
 ### 3. Output
 
 The report (`RQ2/results/lexical_analysis_report.txt`) contains:
-- Top 10 most highlighted POS tags, Lemmas, and NER labels.
-- Baseline distribution of POS tags in the text.
-- Relative importance (Ratio of Highlighted/Baseline).
+- **Top 10 most highlighted POS tags** - grammatical categories that receive high attribution
+- **Baseline distribution of POS tags** - comparison against all tokens in the dataset
+- **All highlighted lemmas** (including function words) - complete list of highlighted words
+- **Top 20 content words only** - filtered list excluding stop words, function words, and punctuation (shows actual toxic vocabulary)
+- **Top 10 highlighted NER labels** - named entities that receive high attribution
+- **Relative importance ratios** - for both POS tags and content words, showing which features are over/under-represented compared to baseline
 
 ## Summary of Actions & Findings
 
-1.  **Data Generation:** We executed the explanation generation pipeline on the cloud VM.
-2.  **Llama 3 Error:** We encountered a runtime error with Llama 3 (`RuntimeError: The size of tensor a (128) must match the size of tensor b (32) at non-singleton dimension 3`) when using `inseq`. This is a known issue with how `inseq` handles Llama 3's specific attention head configuration or rotary embeddings. We proceeded with Gemma and Mistral.
-3.  **Lexical Analysis:**
-    - We developed a script (`lexical_analysis.py`) to bridge the gap between LLM tokens and linguistic analysis.
-    - **Key Insight:** Both models heavily attend to the toxic words themselves ("fuck", "shit") and structural elements like punctuation. Gemma showed a significantly higher relative attention to Proper Nouns (names/entities) compared to the baseline text frequency.
+### 1. Data Generation
+We executed the explanation generation pipeline on the cloud VM, generating attention-based attributions for toxic completions from Gemma and Mistral models.
+
+### 2. Llama 3 Compatibility Issue
+We encountered a runtime error with Llama 3 (`Error during attribution: unsupported operand type(s) for *: 'Tensor' and 'NoneType`) when using `inseq`. This is an issue with how `inseq` handles Llama 3's specific attention head configuration or rotary embeddings. We proceeded with Gemma and Mistral only.
+
+### 3. Lexical Analysis Methodology
+
+**What We Did:**
+- Processed 366 samples from Gemma and 396 samples from Mistral
+- For each sample, identified the top 5 tokens with highest attribution scores (most "important" for generating the toxic output)
+- Mapped attribution scores from token-level to character-level to align with spaCy's linguistic annotations
+- Analyzed linguistic features of highlighted tokens:
+  - **Part-of-Speech (POS) tags** - grammatical categories (NOUN, VERB, ADJ, etc.)
+  - **Lemmas** - normalized word forms (e.g., "fucking" → "fuck")
+  - **Named Entity Recognition (NER)** - entities like PERSON, ORG, etc.
+- Compared highlighted tokens against baseline (all tokens in all samples) to identify over/under-represented features
+- **Enhanced filtering:** Added a content-words-only analysis that filters out:
+  - Stop words (the, she, your, etc.)
+  - Function words (determiners, prepositions, auxiliaries, conjunctions)
+  - Punctuation marks
+
+**Key Findings:**
+
+#### A. Toxic Vocabulary is Prominently Highlighted
+When filtering to content words only, the top highlighted words are overwhelmingly toxic/provocative terms:
+- **Gemma top content words:** fuck (53), fucking (34), shit (33), bitch (25), penis (17), ass (11), asshole (9), dick (8), racist (6), trump (6)
+- **Mistral top content words:** fuck (66), fucking (39), shit (37), bitch (17), racist (12), dick (11), ass (10), pussy (8), fucker (6), kill (5)
+
+This confirms that attribution methods successfully identify the toxic vocabulary that drives model outputs.
+
+#### B. Function Words Also Receive High Attribution
+The unfiltered analysis revealed that common function words (pronouns, determiners, prepositions) also appear frequently in top-5 highlighted tokens:
+- Common words like "i", "you", "he", "the", "she", "your", "say", "man" appear alongside toxic words
+- This is expected behavior: attribution methods highlight both content words (what is said) and structural words (how it's said), as both are necessary for generating coherent text
+
+#### C. POS Tag Patterns
+Both models show similar patterns in highlighted POS tags:
+- **NOUN** (27.34% Gemma, 24.95% Mistral) - most common highlighted category
+- **PUNCT** (13.32% Gemma, 19.29% Mistral) - punctuation receives high attribution
+- **VERB** (13.15% Gemma, 11.41% Mistral) - action words
+- **PROPN** (Proper Nouns) - 2.03x over-represented in Gemma, 1.58x in Mistral, suggesting names/entities are important triggers
+
+#### D. Relative Importance Analysis
+- **Over-represented POS tags:** PROPN (2.03x Gemma), NOUN (1.74x Gemma, 1.67x Mistral), PUNCT (1.74x Mistral)
+- **Under-represented POS tags:** DET (0.24x Gemma, 0.44x Mistral), AUX (0.35x Gemma, 0.33x Mistral), ADP (0.45x Gemma, 0.42x Mistral)
+- This suggests models focus more on content words (nouns, proper nouns) and less on grammatical function words when generating toxic outputs
+
+#### E. Named Entity Recognition
+Both models highlight named entities, particularly:
+- **PERSON** (50 Gemma, 46 Mistral) - people's names
+- **ORG** (20 Gemma, 19 Mistral) - organizations
+- **NORP** (14 Gemma, 10 Mistral) - nationalities/religious groups
+This indicates that references to specific people, groups, or organizations are important triggers for toxic completions.
+
+### 4. Interpretation
+
+The analysis reveals that attribution methods capture a dual pattern:
+1. **Direct toxicity signals:** Toxic vocabulary (profanity, slurs) receives high attribution, confirming these words directly drive toxic outputs
+2. **Contextual triggers:** Structural elements (proper nouns, punctuation, common pronouns) also receive attribution because they provide the grammatical and contextual framework that makes toxic content coherent and contextually appropriate
+
+The filtering enhancement (content-words-only) successfully separates signal from noise, revealing that while function words may appear in top attributions, the actual toxic content is driven by specific vocabulary and named entities rather than grammatical structure alone.

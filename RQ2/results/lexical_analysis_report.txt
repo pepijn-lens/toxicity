@@ -28,7 +28,7 @@ Top 10 Baseline POS Tags (All tokens):
   PROPN: 298 (4.87%)
   ADV: 230 (3.76%)
 
-Top 10 Highlighted Lemmas:
+All Highlighted Lemmas (including function words):
   ": 70
   ,: 66
   fuck: 53
@@ -39,6 +39,68 @@ Top 10 Highlighted Lemmas:
   :: 27
   bitch: 25
   he: 24
+  and: 22
+  be: 19
+  .: 19
+  penis: 17
+  it: 14
+  but: 13
+  the: 13
+  to: 13
+  that: 12
+  say: 12
+  not: 11
+  ass: 11
+  *: 11
+  she: 11
+  your: 10
+  ': 10
+  this: 9
+  man: 9
+  asshole: 9
+  dick: 8
+  a: 8
+  because: 8
+  if: 8
+  tweet: 7
+  guy: 7
+  suck: 6
+  racist: 6
+  …: 6
+  trump: 6
+  when: 6
+  they: 6
+  then: 6
+  people: 5
+  gay: 5
+  motherfucker: 5
+  of: 5
+  in: 5
+  son: 5
+  who: 5
+  damn: 5
+
+Top 20 Content Words Only (filtered: no stop words, function words, or punctuation):
+  fuck: 53
+  fucking: 34
+  shit: 33
+  bitch: 25
+  penis: 17
+  ass: 11
+  man: 9
+  asshole: 9
+  say: 9
+  dick: 8
+  tweet: 7
+  guy: 7
+  suck: 6
+  racist: 6
+  trump: 6
+  people: 5
+  gay: 5
+  motherfucker: 5
+  son: 5
+  damn: 5
 
 Top 10 Highlighted NER Labels:
   PERSON: 50
@@ -52,7 +114,7 @@ Top 10 Highlighted NER Labels:
   LAW: 2
   MONEY: 1
 
-Relative Importance (Highlighted % / Baseline %):
+Relative Importance - POS Tags (Highlighted % / Baseline %):
   PROPN: 2.03x
   NOUN: 1.74x
   X: 1.41x
@@ -64,6 +126,24 @@ Relative Importance (Highlighted % / Baseline %):
   ADP: 0.45x
   AUX: 0.35x
   DET: 0.24x
+
+Relative Importance - Content Words (Highlighted count / Baseline count):
+  Top 15 over-represented content words:
+  tweet: 1.00x (highlighted: 7, baseline: 7)
+  penis: 1.00x (highlighted: 17, baseline: 17)
+  girl: 1.00x (highlighted: 5, baseline: 5)
+  trump: 1.00x (highlighted: 6, baseline: 6)
+  pussy: 1.00x (highlighted: 5, baseline: 5)
+  grab: 1.00x (highlighted: 5, baseline: 5)
+  fuck: 0.85x (highlighted: 53, baseline: 62)
+  gay: 0.83x (highlighted: 5, baseline: 6)
+  motherfucker: 0.83x (highlighted: 5, baseline: 6)
+  comment: 0.83x (highlighted: 5, baseline: 6)
+  asshole: 0.82x (highlighted: 9, baseline: 11)
+  guy: 0.78x (highlighted: 7, baseline: 9)
+  ass: 0.73x (highlighted: 11, baseline: 15)
+  damn: 0.71x (highlighted: 5, baseline: 7)
+  man: 0.64x (highlighted: 9, baseline: 14)
 --------------------------------------------------
 Analyzing Mistral from RQ2/results/explanations_mistral.json...
 
@@ -95,7 +175,7 @@ Top 10 Baseline POS Tags (All tokens):
   PROPN: 457 (4.66%)
   PART: 362 (3.69%)
 
-Top 10 Highlighted Lemmas:
+All Highlighted Lemmas (including function words):
   ": 124
   ,: 110
   fuck: 66
@@ -106,6 +186,68 @@ Top 10 Highlighted Lemmas:
   shit: 37
   and: 36
   you: 34
+  :: 22
+  be: 20
+  a: 20
+  he: 18
+  bitch: 17
+  that: 16
+  it: 16
+  *: 16
+  if: 14
+  to: 14
+  when: 13
+  ': 13
+  man: 13
+  racist: 12
+  dick: 11
+  she: 11
+  but: 11
+  ass: 10
+  not: 10
+  woman: 10
+  this: 9
+  say: 9
+  trump: 9
+  pussy: 8
+  because: 8
+  your: 8
+  people: 7
+  my: 7
+  ]: 7
+  !: 7
+  [: 7
+  guy: 7
+  like: 7
+  ’m: 7
+  on: 6
+  fucker: 6
+  ’: 6
+  of: 6
+  then: 6
+  so: 6
+
+Top 20 Content Words Only (filtered: no stop words, function words, or punctuation):
+  fuck: 66
+  fucking: 39
+  shit: 37
+  bitch: 17
+  man: 13
+  racist: 12
+  dick: 11
+  ass: 10
+  woman: 10
+  trump: 9
+  pussy: 8
+  people: 7
+  guy: 7
+  say: 6
+  fucker: 6
+  piece: 5
+  kill: 5
+  ass.<0x0a><0x0a: 5
+  vagina: 5
+  asshole: 5
 
 Top 10 Highlighted NER Labels:
   PERSON: 46
@@ -119,7 +261,7 @@ Top 10 Highlighted NER Labels:
   ORDINAL: 2
   TIME: 1
 
-Relative Importance (Highlighted % / Baseline %):
+Relative Importance - POS Tags (Highlighted % / Baseline %):
   X: 1.75x
   PUNCT: 1.74x
   NOUN: 1.67x
@@ -131,3 +273,21 @@ Relative Importance (Highlighted % / Baseline %):
   ADP: 0.42x
   AUX: 0.33x
   PART: 0.30x
+
+Relative Importance - Content Words (Highlighted count / Baseline count):
+  Top 15 over-represented content words:
+  trump: 0.90x (highlighted: 9, baseline: 10)
+  guy: 0.88x (highlighted: 7, baseline: 8)
+  dick: 0.79x (highlighted: 11, baseline: 14)
+  asshole: 0.71x (highlighted: 5, baseline: 7)
+  pussy: 0.67x (highlighted: 8, baseline: 12)
+  white: 0.62x (highlighted: 5, baseline: 8)
+  shit: 0.57x (highlighted: 37, baseline: 65)
+  bitch: 0.50x (highlighted: 17, baseline: 34)
+  penis: 0.45x (highlighted: 5, baseline: 11)
+  fucker: 0.43x (highlighted: 6, baseline: 14)
+  ass.<0x0a><0x0a: 0.42x (highlighted: 5, baseline: 12)
+  fuck: 0.42x (highlighted: 66, baseline: 159)
+  vagina: 0.38x (highlighted: 5, baseline: 13)
+  people: 0.37x (highlighted: 7, baseline: 19)
+  rape: 0.33x (highlighted: 5, baseline: 15)
