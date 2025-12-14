@@ -44,6 +44,8 @@ def analyze_file(filename, model_name, top_k=5):
     all_pos = Counter()
     highlighted_ner = Counter()
     highlighted_lemmas = Counter()
+    highlighted_content_lemmas = Counter()  # Filtered: no stop words or function words
+    all_lemmas = Counter()  # Baseline for lemmas
     
     # Track distributions
     highlighted_tokens_count = 0
@@ -51,6 +53,9 @@ def analyze_file(filename, model_name, top_k=5):
 
     # Debug counter for leaking tokens
     leaked_debug = Counter()
+    
+    # Function word POS tags to filter out
+    FUNCTION_POS = {'DET', 'ADP', 'AUX', 'PART', 'CCONJ', 'SCONJ', 'PRON'}
     
     for sample_idx, sample in enumerate(data):
         if not isinstance(sample, dict):
@@ -94,6 +99,7 @@ def analyze_file(filename, model_name, top_k=5):
             # Count baseline stats
             if avg_attr != -1.0 and not token.is_space:
                 all_pos[token.pos_] += 1
+                all_lemmas[token.lemma_.lower()] += 1
                 total_tokens_count += 1
         
         candidates = [
@@ -112,7 +118,16 @@ def analyze_file(filename, model_name, top_k=5):
                  pass
             
             highlighted_pos[token.pos_] += 1
-            highlighted_lemmas[token.lemma_.lower()] += 1
+            lemma_lower = token.lemma_.lower()
+            highlighted_lemmas[lemma_lower] += 1
+            
+            # Track content words only (exclude stop words and function words)
+            if (not token.is_stop and 
+                token.pos_ not in FUNCTION_POS and 
+                not token.is_punct and
+                lemma_lower not in {'<', '>', 'bos', 's', 'eos', '/s', 'pad', 'unk'}):
+                highlighted_content_lemmas[lemma_lower] += 1
+            
             if token.ent_type_:
                 highlighted_ner[token.ent_type_] += 1
             
@@ -134,15 +149,19 @@ def analyze_file(filename, model_name, top_k=5):
         for pos, count in all_pos.most_common(10):
             print(f"  {pos}: {count} ({count/total_all:.2%})")
 
-    print("\nTop 10 Highlighted Lemmas:")
-    for lemma, count in highlighted_lemmas.most_common(10):
+    print("\nAll Highlighted Lemmas (including function words):")
+    for lemma, count in highlighted_lemmas.most_common(50):
+        print(f"  {lemma}: {count}")
+    
+    print("\nTop 20 Content Words Only (filtered: no stop words, function words, or punctuation):")
+    for lemma, count in highlighted_content_lemmas.most_common(20):
         print(f"  {lemma}: {count}")
         
     print("\nTop 10 Highlighted NER Labels:")
     for label, count in highlighted_ner.most_common(10):
         print(f"  {label}: {count}")
         
-    print("\nRelative Importance (Highlighted % / Baseline %):")
+    print("\nRelative Importance - POS Tags (Highlighted % / Baseline %):")
     ratios = []
     for pos, count in highlighted_pos.items():
         if count < 10: continue 
@@ -159,6 +178,22 @@ def analyze_file(filename, model_name, top_k=5):
     print("  ...")
     for pos, ratio in ratios[-5:]:
         print(f"  {pos}: {ratio:.2f}x")
+    
+    print("\nRelative Importance - Content Words (Highlighted count / Baseline count):")
+    lemma_ratios = []
+    total_all_lemmas = sum(all_lemmas.values())
+    for lemma, count in highlighted_content_lemmas.items():
+        if count < 5: continue  # Only show words that appear at least 5 times
+        if total_all_lemmas == 0: continue
+        base_count = all_lemmas.get(lemma, 0)
+        if base_count > 0:
+            ratio = count / base_count
+            lemma_ratios.append((lemma, ratio, count, base_count))
+    
+    lemma_ratios.sort(key=lambda x: x[1], reverse=True)
+    print("  Top 15 over-represented content words:")
+    for lemma, ratio, high_count, base_count in lemma_ratios[:15]:
+        print(f"  {lemma}: {ratio:.2f}x (highlighted: {high_count}, baseline: {base_count})")
 
 if __name__ == "__main__":
     analyze_file("RQ2/results/explanations_gemma.json", "Gemma")
