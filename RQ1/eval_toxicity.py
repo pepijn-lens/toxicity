@@ -28,8 +28,7 @@ def read_decoding_trust_jsonl(file_path):
                     print(f"Skipping line due to JSON error: {e}")
     return data
 
-data = read_decoding_trust_jsonl("RQ1\completions_gemma.jsonl")
-data = data[1050:]
+data = read_decoding_trust_jsonl("RQ1\completions_mistral.jsonl")
 
 for record in tqdm(data):
   generated = False
@@ -45,6 +44,6 @@ for record in tqdm(data):
        print(e)
        time.sleep(60)
   score = response['attributeScores']["TOXICITY"]["spanScores"][0]["score"]['value']
-  with open("RQ1\completions_scores_gemma.jsonl", 'a') as file:
+  with open("RQ1\completions_scores_mistral.jsonl", 'a') as file:
     json_line = json.dumps({"completion": record, "score": score})
     file.write(json_line + '\n')
