@@ -1,0 +1,293 @@
+Analyzing Gemma from RQ2/results/explanations_gemma.json...
+
+Results for Gemma:
+Total samples: 366
+Total highlighted tokens analyzed: 1825
+
+Top 10 Highlighted POS Tags:
+  NOUN: 499 (27.34%)
+  PUNCT: 243 (13.32%)
+  VERB: 240 (13.15%)
+  PRON: 184 (10.08%)
+  PROPN: 180 (9.86%)
+  ADJ: 145 (7.95%)
+  ADV: 65 (3.56%)
+  ADP: 57 (3.12%)
+  SCONJ: 38 (2.08%)
+  CCONJ: 36 (1.97%)
+
+Top 10 Baseline POS Tags (All tokens):
+  NOUN: 960 (15.68%)
+  PUNCT: 859 (14.03%)
+  PRON: 792 (12.94%)
+  VERB: 750 (12.25%)
+  DET: 454 (7.42%)
+  ADP: 427 (6.98%)
+  ADJ: 409 (6.68%)
+  AUX: 336 (5.49%)
+  PROPN: 298 (4.87%)
+  ADV: 230 (3.76%)
+
+All Highlighted Lemmas (including function words):
+  ": 70
+  ,: 66
+  fuck: 53
+  i: 37
+  fucking: 36
+  shit: 33
+  you: 27
+  :: 27
+  bitch: 25
+  he: 24
+  and: 22
+  be: 19
+  .: 19
+  penis: 17
+  it: 14
+  but: 13
+  the: 13
+  to: 13
+  that: 12
+  say: 12
+  not: 11
+  ass: 11
+  *: 11
+  she: 11
+  your: 10
+  ': 10
+  this: 9
+  man: 9
+  asshole: 9
+  dick: 8
+  a: 8
+  because: 8
+  if: 8
+  tweet: 7
+  guy: 7
+  suck: 6
+  racist: 6
+  …: 6
+  trump: 6
+  when: 6
+  they: 6
+  then: 6
+  people: 5
+  gay: 5
+  motherfucker: 5
+  of: 5
+  in: 5
+  son: 5
+  who: 5
+  damn: 5
+
+Top 20 Content Words Only (filtered: no stop words, function words, or punctuation):
+  fuck: 53
+  fucking: 34
+  shit: 33
+  bitch: 25
+  penis: 17
+  ass: 11
+  man: 9
+  asshole: 9
+  say: 9
+  dick: 8
+  tweet: 7
+  guy: 7
+  suck: 6
+  racist: 6
+  trump: 6
+  people: 5
+  gay: 5
+  motherfucker: 5
+  son: 5
+  damn: 5
+
+Top 10 Highlighted NER Labels:
+  PERSON: 50
+  ORG: 20
+  NORP: 14
+  GPE: 11
+  WORK_OF_ART: 7
+  CARDINAL: 5
+  DATE: 4
+  ORDINAL: 3
+  LAW: 2
+  MONEY: 1
+
+Relative Importance - POS Tags (Highlighted % / Baseline %):
+  PROPN: 2.03x
+  NOUN: 1.74x
+  X: 1.41x
+  INTJ: 1.24x
+  ADJ: 1.19x
+  ...
+  NUM: 0.52x
+  PART: 0.50x
+  ADP: 0.45x
+  AUX: 0.35x
+  DET: 0.24x
+
+Relative Importance - Content Words (Highlighted count / Baseline count):
+  Top 15 over-represented content words:
+  tweet: 1.00x (highlighted: 7, baseline: 7)
+  penis: 1.00x (highlighted: 17, baseline: 17)
+  girl: 1.00x (highlighted: 5, baseline: 5)
+  trump: 1.00x (highlighted: 6, baseline: 6)
+  pussy: 1.00x (highlighted: 5, baseline: 5)
+  grab: 1.00x (highlighted: 5, baseline: 5)
+  fuck: 0.85x (highlighted: 53, baseline: 62)
+  gay: 0.83x (highlighted: 5, baseline: 6)
+  motherfucker: 0.83x (highlighted: 5, baseline: 6)
+  comment: 0.83x (highlighted: 5, baseline: 6)
+  asshole: 0.82x (highlighted: 9, baseline: 11)
+  guy: 0.78x (highlighted: 7, baseline: 9)
+  ass: 0.73x (highlighted: 11, baseline: 15)
+  damn: 0.71x (highlighted: 5, baseline: 7)
+  man: 0.64x (highlighted: 9, baseline: 14)
+--------------------------------------------------
+Analyzing Mistral from RQ2/results/explanations_mistral.json...
+
+Results for Mistral:
+Total samples: 396
+Total highlighted tokens analyzed: 1980
+
+Top 10 Highlighted POS Tags:
+  NOUN: 494 (24.95%)
+  PUNCT: 382 (19.29%)
+  VERB: 226 (11.41%)
+  PRON: 210 (10.61%)
+  PROPN: 146 (7.37%)
+  ADJ: 130 (6.57%)
+  DET: 65 (3.28%)
+  ADP: 60 (3.03%)
+  ADV: 56 (2.83%)
+  SCONJ: 55 (2.78%)
+
+Top 10 Baseline POS Tags (All tokens):
+  NOUN: 1467 (14.96%)
+  VERB: 1361 (13.88%)
+  PRON: 1253 (12.78%)
+  PUNCT: 1089 (11.10%)
+  DET: 731 (7.45%)
+  ADP: 705 (7.19%)
+  ADJ: 648 (6.61%)
+  AUX: 620 (6.32%)
+  PROPN: 457 (4.66%)
+  PART: 362 (3.69%)
+
+All Highlighted Lemmas (including function words):
+  ": 124
+  ,: 110
+  fuck: 66
+  i: 61
+  .: 56
+  fucking: 40
+  the: 38
+  shit: 37
+  and: 36
+  you: 34
+  :: 22
+  be: 20
+  a: 20
+  he: 18
+  bitch: 17
+  that: 16
+  it: 16
+  *: 16
+  if: 14
+  to: 14
+  when: 13
+  ': 13
+  man: 13
+  racist: 12
+  dick: 11
+  she: 11
+  but: 11
+  ass: 10
+  not: 10
+  woman: 10
+  this: 9
+  say: 9
+  trump: 9
+  pussy: 8
+  because: 8
+  your: 8
+  people: 7
+  my: 7
+  ]: 7
+  !: 7
+  [: 7
+  guy: 7
+  like: 7
+  ’m: 7
+  on: 6
+  fucker: 6
+  ’: 6
+  of: 6
+  then: 6
+  so: 6
+
+Top 20 Content Words Only (filtered: no stop words, function words, or punctuation):
+  fuck: 66
+  fucking: 39
+  shit: 37
+  bitch: 17
+  man: 13
+  racist: 12
+  dick: 11
+  ass: 10
+  woman: 10
+  trump: 9
+  pussy: 8
+  people: 7
+  guy: 7
+  say: 6
+  fucker: 6
+  piece: 5
+  kill: 5
+  ass.<0x0a><0x0a: 5
+  vagina: 5
+  asshole: 5
+
+Top 10 Highlighted NER Labels:
+  PERSON: 46
+  ORG: 19
+  WORK_OF_ART: 11
+  NORP: 10
+  CARDINAL: 8
+  GPE: 6
+  DATE: 4
+  PRODUCT: 3
+  ORDINAL: 2
+  TIME: 1
+
+Relative Importance - POS Tags (Highlighted % / Baseline %):
+  X: 1.75x
+  PUNCT: 1.74x
+  NOUN: 1.67x
+  PROPN: 1.58x
+  CCONJ: 1.05x
+  ...
+  INTJ: 0.62x
+  DET: 0.44x
+  ADP: 0.42x
+  AUX: 0.33x
+  PART: 0.30x
+
+Relative Importance - Content Words (Highlighted count / Baseline count):
+  Top 15 over-represented content words:
+  trump: 0.90x (highlighted: 9, baseline: 10)
+  guy: 0.88x (highlighted: 7, baseline: 8)
+  dick: 0.79x (highlighted: 11, baseline: 14)
+  asshole: 0.71x (highlighted: 5, baseline: 7)
+  pussy: 0.67x (highlighted: 8, baseline: 12)
+  white: 0.62x (highlighted: 5, baseline: 8)
+  shit: 0.57x (highlighted: 37, baseline: 65)
+  bitch: 0.50x (highlighted: 17, baseline: 34)
+  penis: 0.45x (highlighted: 5, baseline: 11)
+  fucker: 0.43x (highlighted: 6, baseline: 14)
+  ass.<0x0a><0x0a: 0.42x (highlighted: 5, baseline: 12)
+  fuck: 0.42x (highlighted: 66, baseline: 159)
+  vagina: 0.38x (highlighted: 5, baseline: 13)
+  people: 0.37x (highlighted: 7, baseline: 19)
+  rape: 0.33x (highlighted: 5, baseline: 15)
