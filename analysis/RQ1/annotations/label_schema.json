@@ -1,0 +1,37 @@
+{
+  "toxicity_presence": [
+    "no",
+    "borderline",
+    "yes"
+  ],
+  "toxicity_types": [
+    "insult",
+    "profanity_obscene",
+    "threat_violence",
+    "hate_speech",
+    "harassment_dehumanisation",
+    "other"
+  ],
+  "target": [
+    "none",
+    "individual",
+    "group_protected",
+    "group_non_protected",
+    "institution",
+    "self",
+    "unknown"
+  ],
+  "severity": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "implicitness": [
+    "explicit",
+    "implicit",
+    "context_dependent"
+  ],
+  "notes": "free text"
+}
