@@ -1,125 +1,87 @@
-# RQ2: Explanation Generation on Google Cloud VM
+# RQ2: Explanation Generation for Toxic Completions
 
-This guide explains how to generate attention-based explanations for toxic model completions using a GPU-enabled Google Cloud VM, and how to perform lexical analysis on the results.
+This guide explains how to generate token-level attributions for toxic model completions using Google Colab, and how to perform lexical analysis on the results.
 
 ## Overview
 
 The workflow consists of two main parts:
-1.  **Explanation Generation:** Using `inseq` on a GPU VM to compute attention attributions for toxic outputs from LLMs (Gemma, Mistral). Note: Llama 3 analysis was attempted but failed due to compatibility issues with the `inseq` library and the model architecture (dimension mismatch in attention weights).
-2.  **Lexical Analysis:** Processing the explanation files locally to identify which linguistic features (POS tags, Lemmas, NER) are most attended to by the models.
+1. **Explanation Generation:** Using Google Colab notebooks to compute attributions for toxic outputs from LLMs:
+   - **Gemma & Mistral:** Using `inseq` with attention-based attributions (`RQ2_Colab.ipynb`)
+   - **Llama 3:** Using Captum Integrated Gradients (`RQ2_Llama3_IG.ipynb`) - required because `inseq` has compatibility issues with Llama 3's architecture
+2. **Lexical Analysis:** Processing the explanation files locally to identify which linguistic features (POS tags, Lemmas, NER) are most attended to by the models.
 
 ## Prerequisites
 
-- Google Cloud account with billing enabled
-- `gcloud` CLI installed and authenticated (`gcloud auth login`)
-- GPU quota enabled (request in GCP Console if needed)
-- Hugging Face account with access to gated models (Gemma)
+- Google Colab account (free tier works, but GPU sessions have time limits)
+- Hugging Face account with access to gated models (Gemma, Llama 3)
+- Local Python environment for lexical analysis (optional)
 
-## Part 1: Generating Explanations (Cloud VM)
+## Part 1: Generating Explanations (Google Colab)
 
-### 1. Configure Environment
+### For Gemma and Mistral Models
 
-```bash
-export ZONE="us-central1-a"  # Try europe-west4-a if US zones are full
-export VM="toxicity-analysis-vm"
-export GOOGLE_CLOUD_PROJECT="your-project-id"  # Set your GCP project
-```
+Use the `RQ2_Colab.ipynb` notebook:
 
-### 2. Create VM with GPU
+1. **Open the notebook** in Google Colab:
+   - Upload `RQ2/RQ2_Colab.ipynb` to Google Colab, or
+   - Open it directly if it's in your Google Drive
 
-```bash
-gcloud compute instances create $VM \
-    --zone=$ZONE \
-    --machine-type=g2-standard-4 \
-    --image-family=ubuntu-2204-lts \
-    --image-project=ubuntu-os-cloud \
-    --boot-disk-size=200GB \
-    --boot-disk-type=pd-ssd \
-    --metadata=install-nvidia-driver=True \
-    --maintenance-policy=TERMINATE
-```
+2. **Enable GPU:**
+   - Runtime → Change runtime type → GPU (T4 is sufficient)
 
-**Note:** If `g2-standard-4` (L4 GPU) is unavailable, try T4 GPU:
-```bash
-gcloud compute instances create $VM \
-    --zone=$ZONE \
-    --machine-type=n1-standard-8 \
-    --accelerator=type=nvidia-tesla-t4,count=1 \
-    --image-family=ubuntu-2204-lts \
-    --image-project=ubuntu-os-cloud \
-    --boot-disk-size=200GB \
-    --boot-disk-type=pd-ssd \
-    --metadata=install-nvidia-driver=True
-```
+3. **Run setup cells:**
+   - Install packages (`transformers`, `bitsandbytes`, `inseq`, etc.)
+   - Authenticate with Hugging Face (`huggingface-cli login`)
 
-### 3. Upload Files to VM
+4. **Upload data files:**
+   - Upload `RQ1/toxic.jsonl`
+   - Upload `RQ1/completions_scores_gemma.jsonl`
+   - Upload `RQ1/completions_scores_mistral.jsonl`
+   - Or mount Google Drive and copy files from there
 
-```bash
-# Package code and data
-tar -czf toxicity_data.tar.gz RQ1/ RQ2/compute_explanations.py
+5. **Run the analysis:**
+   - The notebook automatically processes both models
+   - Checkpoints are saved every 50 items (resume if session times out)
+   - Results are saved as `explanations_gemma.json` and `explanations_mistral.json`
 
-# Upload setup script and data
-gcloud compute scp RQ2/setup_gcp_vm.sh $VM:~ --zone=$ZONE
-gcloud compute scp toxicity_data.tar.gz $VM:~ --zone=$ZONE
-```
+6. **Download results:**
+   - Use the download cell to get the JSON files
 
-### 4. Setup VM (SSH Required)
+### For Llama 3 Model
 
-```bash
-# Connect to VM
-gcloud compute ssh $VM --zone=$ZONE
+Use the `RQ2_Llama3_IG.ipynb` notebook (uses Captum Integrated Gradients instead of `inseq`):
 
-# Inside VM: Run setup (will reboot automatically)
-bash setup_gcp_vm.sh
+1. **Open the notebook** in Google Colab:
+   - Upload `RQ2/RQ2_Llama3_IG.ipynb` to Google Colab
 
-# Wait ~1 minute for reboot, then reconnect
-gcloud compute ssh $VM --zone=$ZONE
+2. **Enable GPU:**
+   - Runtime → Change runtime type → GPU
 
-# Inside VM: Continue setup (installs Python packages)
-bash setup_gcp_vm.sh --continue
+3. **Run setup cells:**
+   - Install packages (includes `captum` for Integrated Gradients)
+   - Authenticate with Hugging Face
 
-# Authenticate with Hugging Face (required for gated models)
-source ~/toxicity/venv/bin/activate
-huggingface-cli login  # Enter your HF token when prompted
-```
+4. **Upload data files:**
+   - Upload `RQ1/toxic.jsonl`
+   - Upload `RQ1/completions_scores_llama3.jsonl`
 
-### 5. Run Analysis
+5. **Run the analysis:**
+   - The notebook uses Captum Integrated Gradients to attribute the log-probability of completion tokens
+   - Checkpoints are saved every 20 items
+   - Results are saved as `explanations_llama3_ig.json`
 
-```bash
-# Inside VM
-cd ~/toxicity
-mv toxicity_data.tar.gz ~/toxicity/
-tar -xzf toxicity_data.tar.gz
-source venv/bin/activate
+6. **Download results:**
+   - Use the download cell to get the JSON file
 
-# Run in background (survives SSH disconnect)
-nohup python RQ2/compute_explanations.py > output.log 2>&1 &
+### Notes on Colab Execution
 
-# Monitor progress
-tail -f output.log
-```
-
-### 6. Download Results
-
-```bash
-# From your local machine
-mkdir -p RQ2/results
-gcloud compute scp $VM:~/toxicity/explanations_*.json RQ2/results/ --zone=$ZONE
-```
-
-### 7. Cleanup
-
-```bash
-# Stop VM (keeps data, charges only for storage ~$0.17/month)
-gcloud compute instances stop $VM --zone=$ZONE
-
-# Delete VM (permanent, deletes all data)
-gcloud compute instances delete $VM --zone=$ZONE
-```
+- **Session Timeouts:** Free Colab sessions timeout after ~12 hours. The notebooks automatically save checkpoints, so you can resume by re-running the analysis cell.
+- **Memory:** 8-bit quantization is used to fit 7B models in Colab's T4 GPU (16GB VRAM).
+- **Speed:** Processing ~400 toxic examples per model takes several hours. Monitor progress via print statements.
 
 ## Part 2: Lexical Analysis (Local)
 
-After downloading the results, you can perform lexical analysis to understand what linguistic features drove the model's toxicity.
+After downloading the results from Colab, you can perform lexical analysis to understand what linguistic features drove the model's toxicity.
 
 ### 1. Requirements
 
@@ -137,6 +99,8 @@ The script `lexical_analysis.py` reconstructs the text from tokens, maps attribu
 python RQ2/lexical_analysis.py > RQ2/results/lexical_analysis_report.txt
 ```
 
+**Note:** To include Llama 3 results, modify `lexical_analysis.py` to also process `explanations_llama3_ig.json`.
+
 ### 3. Output
 
 The report (`RQ2/results/lexical_analysis_report.txt`) contains:
@@ -150,10 +114,15 @@ The report (`RQ2/results/lexical_analysis_report.txt`) contains:
 ## Summary of Actions & Findings
 
 ### 1. Data Generation
-We executed the explanation generation pipeline on the cloud VM, generating attention-based attributions for toxic completions from Gemma and Mistral models.
+We executed the explanation generation pipeline using Google Colab, generating attributions for toxic completions from Gemma, Mistral, and Llama 3 models.
 
-### 2. Llama 3 Compatibility Issue
-We encountered a runtime error with Llama 3 (`Error during attribution: unsupported operand type(s) for *: 'Tensor' and 'NoneType`) when using `inseq`. This is an issue with how `inseq` handles Llama 3's specific attention head configuration or rotary embeddings. We proceeded with Gemma and Mistral only.
+### 2. Llama 3 Compatibility Solution
+We encountered a runtime error with Llama 3 when using `inseq` (`Error during attribution: unsupported operand type(s) for *: 'Tensor' and 'NoneType'`). This is an issue with how `inseq` handles Llama 3's specific attention head configuration or rotary embeddings. 
+
+**Solution:** We implemented a separate notebook (`RQ2_Llama3_IG.ipynb`) using **Captum Integrated Gradients** instead. This method:
+- Attributes the log-probability of completion tokens back to input embeddings
+- Works directly with Hugging Face models without requiring `inseq`'s attention hooks
+- Produces compatible JSON output for downstream analysis
 
 ### 3. Lexical Analysis Methodology
 

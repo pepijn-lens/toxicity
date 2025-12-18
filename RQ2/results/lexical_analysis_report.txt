@@ -152,16 +152,16 @@ Total samples: 396
 Total highlighted tokens analyzed: 1980
 
 Top 10 Highlighted POS Tags:
-  NOUN: 494 (24.95%)
-  PUNCT: 382 (19.29%)
+  NOUN: 499 (25.20%)
+  PUNCT: 380 (19.19%)
   VERB: 226 (11.41%)
-  PRON: 210 (10.61%)
-  PROPN: 146 (7.37%)
-  ADJ: 130 (6.57%)
-  DET: 65 (3.28%)
-  ADP: 60 (3.03%)
-  ADV: 56 (2.83%)
-  SCONJ: 55 (2.78%)
+  PRON: 204 (10.30%)
+  PROPN: 148 (7.47%)
+  ADJ: 131 (6.62%)
+  DET: 68 (3.43%)
+  ADP: 58 (2.93%)
+  ADV: 58 (2.93%)
+  SCONJ: 54 (2.73%)
 
 Top 10 Baseline POS Tags (All tokens):
   NOUN: 1467 (14.96%)
@@ -176,73 +176,73 @@ Top 10 Baseline POS Tags (All tokens):
   PART: 362 (3.69%)
 
 All Highlighted Lemmas (including function words):
-  ": 124
-  ,: 110
+  ": 126
+  ,: 107
   fuck: 66
-  i: 61
-  .: 56
+  i: 59
+  .: 55
+  the: 42
   fucking: 40
-  the: 38
-  shit: 37
-  and: 36
-  you: 34
-  :: 22
+  shit: 38
+  and: 34
+  you: 33
+  :: 21
   be: 20
   a: 20
+  bitch: 18
   he: 18
-  bitch: 17
-  that: 16
   it: 16
   *: 16
+  that: 15
+  ': 14
   if: 14
   to: 14
-  when: 13
-  ': 13
-  man: 13
+  when: 12
   racist: 12
+  she: 12
+  man: 12
   dick: 11
-  she: 11
+  ass: 11
   but: 11
-  ass: 10
   not: 10
   woman: 10
   this: 9
-  say: 9
+  pussy: 9
   trump: 9
-  pussy: 8
-  because: 8
+  say: 8
   your: 8
   people: 7
-  my: 7
   ]: 7
   !: 7
   [: 7
   guy: 7
+  fucker: 7
+  because: 7
   like: 7
-  ’m: 7
   on: 6
-  fucker: 6
+  my: 6
   ’: 6
-  of: 6
   then: 6
   so: 6
+  or: 6
+  piece: 5
 
 Top 20 Content Words Only (filtered: no stop words, function words, or punctuation):
   fuck: 66
   fucking: 39
-  shit: 37
-  bitch: 17
-  man: 13
+  shit: 38
+  bitch: 18
   racist: 12
+  man: 12
   dick: 11
-  ass: 10
+  ass: 11
   woman: 10
+  pussy: 9
   trump: 9
-  pussy: 8
   people: 7
   guy: 7
+  fucker: 7
   say: 6
-  fucker: 6
   piece: 5
   kill: 5
   ass.<0x0a><0x0a: 5
@@ -250,42 +250,42 @@ Top 20 Content Words Only (filtered: no stop words, function words, or punctuati
   asshole: 5
 
 Top 10 Highlighted NER Labels:
-  PERSON: 46
-  ORG: 19
+  PERSON: 49
+  ORG: 20
+  NORP: 11
   WORK_OF_ART: 11
-  NORP: 10
   CARDINAL: 8
   GPE: 6
-  DATE: 4
   PRODUCT: 3
+  DATE: 3
   ORDINAL: 2
   TIME: 1
 
 Relative Importance - POS Tags (Highlighted % / Baseline %):
   X: 1.75x
-  PUNCT: 1.74x
-  NOUN: 1.67x
-  PROPN: 1.58x
-  CCONJ: 1.05x
+  PUNCT: 1.73x
+  NOUN: 1.68x
+  PROPN: 1.60x
+  CCONJ: 1.01x
   ...
   INTJ: 0.62x
-  DET: 0.44x
-  ADP: 0.42x
-  AUX: 0.33x
-  PART: 0.30x
+  DET: 0.46x
+  ADP: 0.41x
+  AUX: 0.32x
+  PART: 0.31x
 
 Relative Importance - Content Words (Highlighted count / Baseline count):
   Top 15 over-represented content words:
   trump: 0.90x (highlighted: 9, baseline: 10)
   guy: 0.88x (highlighted: 7, baseline: 8)
   dick: 0.79x (highlighted: 11, baseline: 14)
+  pussy: 0.75x (highlighted: 9, baseline: 12)
   asshole: 0.71x (highlighted: 5, baseline: 7)
-  pussy: 0.67x (highlighted: 8, baseline: 12)
   white: 0.62x (highlighted: 5, baseline: 8)
-  shit: 0.57x (highlighted: 37, baseline: 65)
-  bitch: 0.50x (highlighted: 17, baseline: 34)
+  shit: 0.58x (highlighted: 38, baseline: 65)
+  bitch: 0.53x (highlighted: 18, baseline: 34)
+  fucker: 0.50x (highlighted: 7, baseline: 14)
   penis: 0.45x (highlighted: 5, baseline: 11)
-  fucker: 0.43x (highlighted: 6, baseline: 14)
   ass.<0x0a><0x0a: 0.42x (highlighted: 5, baseline: 12)
   fuck: 0.42x (highlighted: 66, baseline: 159)
   vagina: 0.38x (highlighted: 5, baseline: 13)
