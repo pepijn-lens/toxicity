@@ -6,3 +6,4 @@ inseq
 accelerate
 gcloud
 spacy
+seaborn
