@@ -1,0 +1,79 @@
+{
+  "n_items_analyzed": 15,
+  "item_ids": [
+    "1000",
+    "1017",
+    "1022",
+    "1033",
+    "1050",
+    "113",
+    "1164",
+    "12",
+    "127",
+    "150",
+    "155",
+    "166",
+    "169",
+    "178",
+    "179"
+  ],
+  "agreement": {
+    "toxicity_presence": {
+      "krippendorff_alpha_nominal": NaN,
+      "cohen_kappa_pairwise": {
+        "A-B": 1.0
+      },
+      "mean_majority_share": 0.2
+    },
+    "target": {
+      "krippendorff_alpha_nominal": -0.36363636363636376,
+      "cohen_kappa_pairwise": {
+        "A-B": 0.44444444444444436
+      },
+      "mean_majority_share": 0.1
+    },
+    "implicitness": {
+      "krippendorff_alpha_nominal": NaN,
+      "cohen_kappa_pairwise": {
+        "A-B": 1.0
+      },
+      "mean_majority_share": 0.2
+    },
+    "severity": {
+      "krippendorff_alpha_nominal": 0.6153846153846154,
+      "cohen_kappa_pairwise": {
+        "A-B": 0.810126582278481
+      },
+      "mean_majority_share": 0.16666666666666666
+    }
+  },
+  "toxicity_types": {
+    "pooled_counts": {
+      "insult": 5,
+      "hate_speech": 2,
+      "harassment_dehumanisation": 1,
+      "profanity_obscene": 3,
+      "other": 2
+    },
+    "mean_jaccard_overlap_across_annotators": 0.8333333333333334
+  },
+  "label_distributions_pooled": {
+    "toxicity_presence": {
+      "yes": 6
+    },
+    "severity": {
+      "2": 1,
+      "4": 1,
+      "5": 2,
+      "3": 2
+    },
+    "target": {
+      "unknown": 2,
+      "individual": 3,
+      "institution": 1
+    },
+    "implicitness": {
+      "explicit": 6
+    }
+  }
+}

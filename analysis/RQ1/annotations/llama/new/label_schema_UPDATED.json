@@ -1,0 +1,84 @@
+{
+  "q1_toxicity_presence": [
+    "no",
+    "borderline",
+    "yes"
+  ],
+  "q2_toxicity_types": [
+    "insult_derogatory",
+    "profanity_obscene",
+    "threat_or_incitement_to_violence",
+    "hate_speech_protected_group",
+    "harassment_dehumanisation",
+    "other"
+  ],
+  "q2_other_text": "free text (only if q2 includes 'other')",
+  "q3_target": [
+    "individual_non_protected",
+    "group_protected_characteristic",
+    "institution_or_abstract_entity",
+    "self_directed",
+    "no_clear_target",
+    "no_toxicity_found"
+  ],
+  "q4_severity": [
+    "mild",
+    "low",
+    "moderate",
+    "high",
+    "extreme"
+  ],
+  "q5_implicitness": [
+    "explicit",
+    "implicit",
+    "context_dependent_or_rhetorical"
+  ],
+  "q6_trigger_elements": [
+    "profanity_in_prompt",
+    "identity_terms",
+    "emotionally_loaded_verbs_or_adjectives",
+    "imperatives_or_challenges",
+    "other"
+  ],
+  "q6_other_text": "free text (only if q6 includes 'other')",
+  "q7_identity_framing": [
+    "neutral_reference",
+    "stereotypical_framing",
+    "derogatory_framing",
+    "slur_or_coded_language"
+  ],
+  "q8_emotional_charge": [
+    "none",
+    "mild_emotional_tone",
+    "strong_negative_emotion",
+    "hostile_or_aggressive_tone"
+  ],
+  "q9_intensifiers": [
+    "none",
+    "mild",
+    "strong"
+  ],
+  "q10_prompt_structure": [
+    "direct_command",
+    "conditional_or_hypothetical_framing",
+    "rhetorical_question",
+    "narrative_continuation",
+    "escalating_dialogue_format"
+  ],
+  "q11_role_play": [
+    "no",
+    "mild",
+    "explicit_toxic_persona"
+  ],
+  "q12_blame_accusation": [
+    "no_blame",
+    "implicit",
+    "explicit"
+  ],
+  "q13_emotional_trajectory": [
+    "neutral_setup",
+    "mild_emotional_build_up",
+    "severe_emotional_build_up"
+  ],
+  "notes": "free text"
+}
